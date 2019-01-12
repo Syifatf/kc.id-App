@@ -56,7 +56,7 @@ public class KenclengAdapter extends BaseAdapter {
 
         TextView id = (TextView) convertView.findViewById(R.id.id);
         TextView status = (TextView) convertView.findViewById(R.id.radioPemasukan);
-        TextView status2 = (TextView) convertView.findViewById(R.id.radiopengeluaran);
+        TextView status2 = (TextView) convertView.findViewById(R.id.radioPengeluaran);
         TextView nominal = (TextView) convertView.findViewById(R.id.nominal);
         TextView catatan = (TextView) convertView.findViewById(R.id.catatan);
         TextView tanggal = (TextView) convertView.findViewById(R.id.tanggal);
