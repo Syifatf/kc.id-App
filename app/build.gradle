@@ -34,9 +34,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-//android {
-//
-//aaptOptions {
-//    cruncherEnabled = false
-//}
-//}
+android {
+
+aaptOptions {
+    cruncherEnabled = false
+}
+}
