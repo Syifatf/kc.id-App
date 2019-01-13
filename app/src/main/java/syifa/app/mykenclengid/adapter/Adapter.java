@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import syifa.app.mykenclengid.MainActivity;
 import syifa.app.mykenclengid.R;
 import syifa.app.mykenclengid.model.Data;
 
@@ -19,13 +20,13 @@ import syifa.app.mykenclengid.model.Data;
  * Created by USER on 12/01/2019.
  */
 
-public class KenclengAdapter extends BaseAdapter {
+public class Adapter extends BaseAdapter {
 
-    private Activity activity;
+    private Class<MainActivity> activity;
     private LayoutInflater inflater;
     List<Data> items;
 
-    public KenclengAdapter(Activity activity, List<Data> items) {
+    public Adapter(Class<MainActivity> activity, List<Data> items) {
         this.activity = activity;
 //        this.inflater = inflater;
         this.items = items;
@@ -48,14 +49,14 @@ public class KenclengAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater == null) {
+            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_item, null);
 
-        TextView id = convertView.findViewById(Integer.parseInt(R.id.id));
+        TextView id = convertView.findViewById(R.id.text_id);
         TextView radio = convertView.findViewById(R.id.txt_radio);
         TextView nominal = convertView.findViewById(R.id.nominal);
         TextView catatan = convertView.findViewById(R.id.catatan);

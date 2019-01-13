@@ -10,15 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import syifa.app.mykenclengid.adapter.Adapter;
 import syifa.app.mykenclengid.handler.DatabaseHandler;
 import syifa.app.mykenclengid.model.Data;
 
@@ -63,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new Adapter(MainActivity.this, itemList);
-        listView.setAdapter((ListAdapter) adapter);
+        adapter = new Adapter(MainActivity.class, itemList);
+        listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
@@ -74,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 final String idx = itemList.get(position).getId();
                 final String radio = itemList.get(position).getRadio();
                 final String nominal = itemList.get(position).getNominal();
-                final String catatn = itemList.get(position).getCatatan();
+                final String catatan = itemList.get(position).getCatatan();
                 final String tanggal = itemList.get(position).getTanggal();
 
                 final CharSequence[] dialogitem = {"Edit", "Delete"};
                 dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setCancelable(true);
-                dialog.setItems(dialogitem, new DialogInterface.OnClickListener() {
+                AlertDialog show = dialog.setItems(dialogitem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         switch (which) {
@@ -88,14 +87,13 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
                                 intent.putExtra(TAG_ID, idx);
                                 intent.putExtra(TAG_RADIOBUTTON, radio);
-                                intent.putExtra(TAG_RADIOBUTTON, radio);
-                                intent.putExtra(TAG_CATATAN, catatn);
+                                intent.putExtra(TAG_CATATAN, catatan);
 //                                intent.putExtra(TAG_TANGGAL), tanggal;
                                 startActivity(intent);
                                 break;
 
                             case 1:
-                                SQLite.delete(Integer.parseInt(idx);
+                                SQLite.delete(Integer.parseInt(idx));
                                 itemList.clear();
                                 getAllData();
                                 break;

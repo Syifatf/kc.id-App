@@ -8,25 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import syifa.app.mykenclengid.handler.DatabaseHandler;
-import syifa.app.mykenclengid.handler.RequestHandler;
 
 import static android.widget.Toast.makeText;
-import static syifa.app.mykenclengid.R.id.default_activity_button;
-import static syifa.app.mykenclengid.R.id.edit_query;
-import static syifa.app.mykenclengid.R.id.id;
-import static syifa.app.mykenclengid.R.id.nominal;
-import static syifa.app.mykenclengid.R.id.radio;
-import static syifa.app.mykenclengid.R.id.text;
-import static syifa.app.mykenclengid.R.id.txt_catatan;
-import static syifa.app.mykenclengid.R.id.txt_nominal;
-import static syifa.app.mykenclengid.R.id.txt_radio;
-import static syifa.app.mykenclengid.R.id.txt_tgl;
-import static syifa.app.mykenclengid.R.id.useLogo;
 
 public class AddEditActivity extends AppCompatActivity {
 
@@ -43,7 +29,7 @@ public class AddEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addEdit);
+        setContentView(R.layout.activity_add_edit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         text_id = (EditText) findViewById(R.id.text_id);
@@ -120,14 +106,16 @@ public class AddEditActivity extends AppCompatActivity {
 
     private void save(){
         if (String.valueOf(txt_radio.getText()).equals(null) || String.valueOf(txt_radio.getText()).equals("") ||
-                txt_nominal.getText()).equals(null) || String.valueOf(txt_nominal.getText()).equals("") ||
+                String.valueOf(txt_nominal.getText()).equals(null) || String.valueOf(txt_nominal.getText()).equals("") ||
                 String.valueOf(txt_catatan.getText()).equals(null) || String.valueOf(txt_catatan.getText()).equals("") ||
                 String.valueOf(txt_tgl.getText()).equals(null) || String.valueOf(txt_tgl.getText()).equals(""))
-            Toast, makeText(getApplicationContext(),
+            Toast.makeText(getApplicationContext(),
                     "mohon isi nominal dan catatan, serta tanggal ", Toast.LENGTH_SHORT).show();
         else {
-            SQLite.insert(txt_radio.getText().toString().trim()), txt_nominal.getText().toString().trim()),
-                txt_catatan.getText().toString().trim(), txt_tgl.getText().toString().trim());
+            SQLite.insert(txt_radio.getText().toString().trim(),
+                    txt_nominal.getText().toString().trim(),
+                    txt_catatan.getText().toString().trim(),
+                    txt_tgl.getText().toString().trim());
             blank();
             finish();
         }
@@ -135,13 +123,13 @@ public class AddEditActivity extends AppCompatActivity {
 
 
     private void edit() {
-        if (String.valueOf(txt_radio.getText()).equals(null)) || String.valueOf(txt_radio.getText()).equals(""),
-                String.valueOf(txt_nominal.getText()).equals(null)) || String.valueOf(txt_nominal.getText()).equals(""),
-                String.valueOf(txt_catatan.getText()).equals() || String.valueOf(txt_tgl.getText()).equals("")) {
+        if (String.valueOf(txt_radio.getText()).equals(null) || String.valueOf(txt_radio.getText()).equals("") ||
+                String.valueOf(txt_nominal.getText()).equals(null) || String.valueOf(txt_nominal.getText()).equals("") ||
+                String.valueOf(txt_catatan.getText()).equals(null) || String.valueOf(txt_tgl.getText()).equals("")) {
             Toast.makeText(getApplicationContext(),
                     "silahkan isi nominal, catatndan teggal nyaa ", Toast.LENGTH_SHORT).show();
         } else {
-            SQLite .update(Integer.perseInt(text_id.getText().toString().trim()), txt_nominal.getText().toString().trim()), txt_catatan.getText().toString().trim();
+            SQLite .update(Integer.parseInt(text_id.getText().toString().trim()), txt_nominal.getText().toString().trim()); txt_catatan.getText().toString().trim();
         }
     }
 

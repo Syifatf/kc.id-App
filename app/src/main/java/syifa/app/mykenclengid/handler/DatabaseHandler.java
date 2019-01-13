@@ -9,7 +9,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static syifa.app.mykenclengid.R.id.catatan;
+import static syifa.app.mykenclengid.R.id.nominal;
 import static syifa.app.mykenclengid.R.id.radio;
+import static syifa.app.mykenclengid.R.id.tanggal;
+import static syifa.app.mykenclengid.R.id.txt_nominal;
 
 /**
  * Created by USER on 11/01/2019.
@@ -86,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void insert(String radio) {
+    public void insert(String radio, String trim, String s, String trim1) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         String queryValues = " INSERT INTO " + TABLE_TAMBAH_DATA + " (radio, nominal, catatan, tanggal) " +
@@ -96,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void update(int id, String radio, String nominal, String catatan, String tanggal) {
+    public void update(int id, String radio) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         String updateQuery = "UPDATE " + TABLE_TAMBAH_DATA + " SET " + KEY_RADIOBUTTON + "='" + radio + "',"
