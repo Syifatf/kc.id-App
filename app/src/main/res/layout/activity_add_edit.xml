@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="syifa.app.mykenclengid.AddEditActivity">
 
-    <EditText
+    <EditTex
         android:id="@+id/text_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tambah Tabungan"
+        android:text="@string/tambah_tabungan"
         android:textSize="20sp"
         android:typeface="serif"
         android:layout_marginTop="20dp"
@@ -55,13 +55,13 @@
                             android:id="@+id/radioPemasukan"
                             android:layout_width="185dp"
                             android:layout_height="wrap_content"
-                            android:text="Pemasukan" />
+                            android:text="@string/pemasukan" />
 
                         <RadioButton
                             android:id="@+id/radioPengeluaran"
                             android:layout_width="194dp"
                             android:layout_height="match_parent"
-                            android:text="Pengeluaran" />
+                            android:text="@string/pengeluaran" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -83,7 +83,7 @@
                         android:id="@+id/txt_nominal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Rp."
+                        android:hint="@string/Rp."
                         android:inputType="number" />
 
                     <EditText
@@ -91,14 +91,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left|top"
-                        android:hint="Catatan"
+                        android:hint="@string/catatan"
                         android:minLines="5"/>
 
                     <EditText
                         android:id="@+id/txt_tgl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="tanggal"/>
+                        android:hint="@string/tanggal"/>
 
 
                     <LinearLayout
@@ -111,13 +111,13 @@
                             android:id="@+id/btnBatal"
                             android:layout_width="173dp"
                             android:layout_height="wrap_content"
-                            android:text="Batal"/>
+                            android:text="@string/batal"/>
 
                         <Button
                             android:id="@+id/btnSimpan"
                             android:layout_width="164dp"
                             android:layout_height="wrap_content"
-                            android:text="Simpan"/>
+                            android:text="@string/simpan"/>
 
                     </LinearLayout>
 

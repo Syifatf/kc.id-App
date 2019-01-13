@@ -2,4 +2,15 @@
     <string name="app_name">My Kencleng.id</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_spalsh">SpalshActivity</string>
+    
+    <string name="tambah_tabungan">tambah tabungan</string>
+    <string name="pemasukan">pemasukan</string>
+    <string name="pengeluaran">pengeluaran</string>
+    <string name="Rp.">Rp.</string>
+    <string name="catatan">catatan</string>
+    <string name="tanggal">tanggal</string>
+    <string name="batal">batal</string>
+    <string name="simpan">simpan</string>
+
+
 </resources>

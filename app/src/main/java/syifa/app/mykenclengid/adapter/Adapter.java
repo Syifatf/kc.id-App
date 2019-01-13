@@ -28,7 +28,7 @@ public class Adapter extends BaseAdapter {
 
     public Adapter(Class<MainActivity> activity, List<Data> items) {
         this.activity = activity;
-//        this.inflater = inflater;
+        this.inflater = inflater;
         this.items = items;
     }
 
