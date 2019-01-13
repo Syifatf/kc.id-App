@@ -2,28 +2,43 @@ package syifa.app.mykenclengid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import syifa.app.mykenclengid.handler.DatabaseHandler;
 import syifa.app.mykenclengid.handler.RequestHandler;
 
+import static android.widget.Toast.makeText;
+import static syifa.app.mykenclengid.R.id.default_activity_button;
+import static syifa.app.mykenclengid.R.id.edit_query;
+import static syifa.app.mykenclengid.R.id.id;
+import static syifa.app.mykenclengid.R.id.nominal;
+import static syifa.app.mykenclengid.R.id.radio;
+import static syifa.app.mykenclengid.R.id.text;
+import static syifa.app.mykenclengid.R.id.txt_catatan;
+import static syifa.app.mykenclengid.R.id.txt_nominal;
+import static syifa.app.mykenclengid.R.id.txt_radio;
+import static syifa.app.mykenclengid.R.id.txt_tgl;
+import static syifa.app.mykenclengid.R.id.useLogo;
+
 public class AddEditActivity extends AppCompatActivity {
 
     private ListView lst_View;
-    private String JSON_STRING;
 
-    RadioButton radio_masuk, radio_keluar;
-    EditText nominal, catatan, tanggal;
+    EditText text_id, txt_radio, txt_catatan, txt_nominal, txt_tgl;
+//    RadioButton radio_masuk, radio_keluar;
+//    EditText tanggal;
     Button btnSimpan, btnBatal;
-
     DatabaseHandler SQLite = new DatabaseHandler(this);
 
-    RequestHandler requestHandler;
+    String id, radio, nominal, catatan, tanggal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,81 +46,104 @@ public class AddEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_addEdit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        radio_masuk = (RadioButton) findViewById(R.id.radioPemasukan);
-//        radio_keluar = (RadioButton) findViewById(R.id.radiopengeluaran);
-        nominal = (EditText) findViewById(R.id.nominal);
-        catatan = (EditText) findViewById(R.id.catatan);
-        tanggal = (EditText) findViewById(R.id.tanggal);
-        btnSimpan = (Button) findViewById(R.id.btnSimpan);
-        btnBatal = (Button) findViewById(R.id.btnBatal);
+        text_id = (EditText) findViewById(R.id.text_id);
+        txt_nominal = (EditText) findViewById(R.id.nominal);
+        txt_catatan = (EditText) findViewById(R.id.catatan);
+        txt_tgl = (EditText) findViewById(R.id.tanggal);
+
 
         id = getIntent().getStringExtra(MainActivity.TAG_ID);
-        status = getIntent().getStringExtra(MainActivity.TAG_STATUS);
+        radio = getIntent().getStringExtra(MainActivity.TAG_RADIOBUTTON);
         nominal = getIntent().getStringExtra(MainActivity.TAG_NOMINAL);
         catatan = getIntent().getStringExtra(MainActivity.TAG_CATATAN);
         tanggal = getIntent().getStringExtra(MainActivity.TAG_TANGGAL);
 
-        if (id == null || id "") {
+        if (id == null || id == "") {
             setTitle("Add Data");
         } else {
             setTitle("Edit Data");
-            id.setText(id);
-            nominal.setText(nominal);
-            catatan.setText(catatan);
-            tanggal.setText(tanggal);
+            text_id.setText(id);
+            txt_nominal.setText(nominal);
+            txt_catatan.setText(catatan);
+            txt_tgl.setText(tanggal);
         }
 
-        btnSimpan.setOnClickListener(new View.OnClickListener(){
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    if (id.getText().toString().equals("")) {
+                    if (text_id.getText().toString().equals("")) {
                         save();
                     } else {
                         edit();
                     }
                 } catch (Exception e) {
-                    log.e("Submit", e.toString());
+                    Log.e("Submit", e.toString());
                 }
             }
         });
 
-        btnBatal.setOnClickListener(new View.OnClickListener(){
+        btnBatal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 blank();
                 finish();
             }
         });
+    }
 
-        private void blank() {
-        nominal.requestFocus();
-        id.setText(null);
-        catatan.setText(null);
-        tanggal.setText(null);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                blank();
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void blank() {
+        txt_nominal.requestFocus();
+        text_id.setText(null);
+        txt_radio.setText(null);
+        txt_catatan.setText(null);
+        txt_tgl.setText(null);
     }
 
     private void save(){
-        if ( //String.valueOf(status.getText()).equals(null) || String.valueOf(status.getText()).equals("") ||
-            String.valueOf(nominal.getText()).equals(null) || String.valueOf(nominal.getText()).equals("") ||
-            String.valueOf(catatan.getText()).equals(null) || String.valueOf(catatan.getText()).equals("") ||
-            String.valueOf(tanggal.getText()).equals(null) || String.valueOf(tanggal.getText()).equals("")) {
-
-            Toast,makeText(getApplicationContext(),
-                    "mohon isi nominal dan catatann, serta tanggal ", Toast.LENGTH_SHORT).show();
-        } else {
-            SQLite.update(Integer.perseInt(id.getText().toString().trim()), nominal.getText().toString().trim(), catatan.getText().toString().trim());
+        if (String.valueOf(txt_radio.getText()).equals(null) || String.valueOf(txt_radio.getText()).equals("") ||
+                txt_nominal.getText()).equals(null) || String.valueOf(txt_nominal.getText()).equals("") ||
+                String.valueOf(txt_catatan.getText()).equals(null) || String.valueOf(txt_catatan.getText()).equals("") ||
+                String.valueOf(txt_tgl.getText()).equals(null) || String.valueOf(txt_tgl.getText()).equals(""))
+            Toast, makeText(getApplicationContext(),
+                    "mohon isi nominal dan catatan, serta tanggal ", Toast.LENGTH_SHORT).show();
+        else {
+            SQLite.insert(txt_radio.getText().toString().trim()), txt_nominal.getText().toString().trim()),
+                txt_catatan.getText().toString().trim(), txt_tgl.getText().toString().trim());
             blank();
             finish();
         }
-
     }
 
-    // pengkondisian
 
-//        String type [] = {"Pengeluaran", "Pemasukan"};
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, type);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spnType.setAdapter(adapter);
-}
+    private void edit() {
+        if (String.valueOf(txt_radio.getText()).equals(null)) || String.valueOf(txt_radio.getText()).equals(""),
+                String.valueOf(txt_nominal.getText()).equals(null)) || String.valueOf(txt_nominal.getText()).equals(""),
+                String.valueOf(txt_catatan.getText()).equals() || String.valueOf(txt_tgl.getText()).equals("")) {
+            Toast.makeText(getApplicationContext(),
+                    "silahkan isi nominal, catatndan teggal nyaa ", Toast.LENGTH_SHORT).show();
+        } else {
+            SQLite .update(Integer.perseInt(text_id.getText().toString().trim()), txt_nominal.getText().toString().trim()), txt_catatan.getText().toString().trim();
+        }
+    }
+
+
+    }

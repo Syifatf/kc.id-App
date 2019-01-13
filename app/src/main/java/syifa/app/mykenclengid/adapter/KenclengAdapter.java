@@ -6,13 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
 
-import syifa.app.mykenclengid.MainActivity;
 import syifa.app.mykenclengid.R;
-import syifa.app.mykenclengid.model.KenclengModels;
+import syifa.app.mykenclengid.model.Data;
 
 /**
  * Created by USER on 12/01/2019.
@@ -22,53 +23,51 @@ public class KenclengAdapter extends BaseAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    List<KenclengModels> items;
-    private View convertView;
+    List<Data> items;
 
-    public KenclengAdapter(Activity activity, LayoutInflater inflater, List<KenclengModels> items) {
+    public KenclengAdapter(Activity activity, List<Data> items) {
         this.activity = activity;
-        this.inflater = inflater;
+//        this.inflater = inflater;
         this.items = items;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return items.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int location) {
+        return items.get(location);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (inflater == null)
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) activity
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_item, null);
 
-        TextView id = (TextView) convertView.findViewById(R.id.id);
-        TextView status = (TextView) convertView.findViewById(R.id.radioPemasukan);
-        TextView status2 = (TextView) convertView.findViewById(R.id.radioPengeluaran);
-        TextView nominal = (TextView) convertView.findViewById(R.id.nominal);
-        TextView catatan = (TextView) convertView.findViewById(R.id.catatan);
-        TextView tanggal = (TextView) convertView.findViewById(R.id.tanggal);
+        TextView id = convertView.findViewById(Integer.parseInt(R.id.id));
+        TextView radio = convertView.findViewById(R.id.txt_radio);
+        TextView nominal = convertView.findViewById(R.id.nominal);
+        TextView catatan = convertView.findViewById(R.id.catatan);
+        TextView tanggal = convertView.findViewById(R.id.tanggal);
 
-        KenclengModels kenclengModels = items.get(i);
+        Data data = items.get(position);
 
-        id.setText(KenclengModels.getId());
-        status.setText(KenclengModels.getStatus());
-        status2.setText(KenclengModels.getStatus());
-        nominal.setText(KenclengModels.getNominal());
-        catatan.setText(KenclengModels.getCatatan());
-        tanggal.setText(KenclengModels.getTanggal());
+        id.setText(Data.getId());
+        radio.setText(Data.getRadio());
+        nominal.setText(Data.getNominal());
+        catatan.setText(Data.getCatatan());
+        tanggal.setText(Data.getTanggal());
 
         return convertView;
     }

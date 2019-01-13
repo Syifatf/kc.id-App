@@ -1,8 +1,8 @@
 package syifa.app.mykenclengid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,18 +20,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import syifa.app.mykenclengid.handler.DatabaseHandler;
-import syifa.app.mykenclengid.model.KenclengModels;
+import syifa.app.mykenclengid.model.Data;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     AlertDialog.Builder dialog;
-    List<KenclengModels> itemList = new ArrayList<KenclengModels>();
+    List<Data> itemList = new ArrayList<Data>();
     Adapter adapter;
     DatabaseHandler SQLite = new DatabaseHandler(this);
 
     public static final String TAG_ID = "id";
-    public static final String TAG_STATUS = "status";
+    public static final String TAG_RADIOBUTTON = "radio";
     public static final String TAG_NOMINAL = "nominal";
     public static final String TAG_CATATAN = "catatan";
     public static final String TAG_TANGGAL = "tanggal";
@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new Adapter(MainActivity.this, itemList);
         listView.setAdapter((ListAdapter) adapter);
 
-        listView.setOnClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-            public boolean onItemClick(AdapterView final AdapterView<?> parent, View view, final int position, final long id) {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, final long id) {
 
-                final float idx = itemList.get(position).getId();
-                final String status = itemList.get(position).getStatus();
+                final String idx = itemList.get(position).getId();
+                final String radio = itemList.get(position).getRadio();
                 final String nominal = itemList.get(position).getNominal();
                 final String catatn = itemList.get(position).getCatatan();
                 final String tanggal = itemList.get(position).getTanggal();
@@ -79,31 +80,28 @@ public class MainActivity extends AppCompatActivity {
                 final CharSequence[] dialogitem = {"Edit", "Delete"};
                 dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setCancelable(true);
-                dialog.setItems(dialogitem, new DialogPreference() {
+                dialog.setItems(dialogitem, new DialogInterface.OnClickListener() {
                     @Override
-                    protected void onClick(DialogPreference dialog, int which) {
-
+                    public void onClick(DialogInterface dialogInterface, int which) {
                         switch (which) {
                             case 0:
                                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                                intent.putExtra(TAG_ID, id);
-                                intent.putExtra(TAG_STATUS, status);
-                                intent.putExtra(TAG_STATUS, status);
+                                intent.putExtra(TAG_ID, idx);
+                                intent.putExtra(TAG_RADIOBUTTON, radio);
+                                intent.putExtra(TAG_RADIOBUTTON, radio);
                                 intent.putExtra(TAG_CATATAN, catatn);
 //                                intent.putExtra(TAG_TANGGAL), tanggal;
                                 startActivity(intent);
                                 break;
 
-                            case 2:
-                                SQLite.delete(Integer.parseInt(id));
+                            case 1:
+                                SQLite.delete(Integer.parseInt(idx);
                                 itemList.clear();
                                 getAllData();
                                 break;
                         }
-
-//                        super.onClick();
                     }
-                }); show();
+                }).show();
                 return false;
             }
         });
@@ -111,29 +109,25 @@ public class MainActivity extends AppCompatActivity {
         getAllData();
     }
 
-    private void show() {
-
-    }
-
     private void getAllData() {
-        ArrayList<HashMap<String, String>> row =SQLite.getAllData();
+        ArrayList<HashMap<String, String>> row = SQLite.getAllData();
 
-        for (int i = 0 < row.size(); i++) {
-            int id = row.get(i).get(TAG_ID);
-            String status = row.get(i).get(TAG_STATUS);
+        for (int i = 0; i < row.size(); i++) {
+            String id = row.get(i).get(TAG_ID);
+            String radio = row.get(i).get(TAG_RADIOBUTTON);
             String nominal = row.get(i).get(TAG_NOMINAL);
             String catatan = row.get(i).get(TAG_CATATAN);
             String tanggal = row.get(i).get(TAG_TANGGAL);
 
-            KenclengModels kenclengModels = new KenclengModels();
+            Data data = new Data();
 
-            KenclengModels.setId(id);
-            KenclengModels.setStatus(status);
-            KenclengModels.setNominal(nominal);
-            KenclengModels.setCatatan(catatan);
-            KenclengModels.setTanggal(tanggal);
+            data.setId(id);
+            data.setRadio(radio);
+            data.setNominal(nominal);
+            data.setCatatan(catatan);
+            data.setTanggal(tanggal);
 
-            itemList.add(KenclengModels);
+            itemList.add(data);
         }
         adapter.notify();
     }
@@ -166,16 +160,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, MainActivity.class);
-        HashMap<String,String> map =(HashMap)parent.getItemAtPosition(position);
-        String empId = map.get(Konfigurasi.TAG_ID).toString();
-        intent.putExtra(Konfigurasi.EMP_ID,empId);
-        startActivity(intent);
-    }
-
-
 }

@@ -4,36 +4,36 @@ package syifa.app.mykenclengid.model;
  * Created by USER on 11/01/2019.
  */
 
-public class KenclengModels {
+public class Data {
 
-    static int id;
-    static String status;
+    static String id;
+    static String radio;
     static String nominal;
     static String catatan;
     static String tanggal;
 
-    public KenclengModels(int id, String status, String nominal) {
+    public Data() {
         this.id = id;
-        this.status = status;
+        this.radio = radio;
         this.nominal = nominal;
-        this.catatan = catatan;
-        this.tanggal = tanggal;
+        catatan = catatan;
+        tanggal = tanggal;
     }
 
-    public static int getId() {
+    public static String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public static String getStatus() {
-        return status;
+    public static String getRadio() {
+        return radio;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRadio(String radio) {
+        this.radio = radio;
     }
 
     public static String getNominal() {
